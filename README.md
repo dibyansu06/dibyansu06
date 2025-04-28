@@ -54,8 +54,12 @@ and more..
 
 ### 
 
+
 <h2 align="left">Me</h2>
 <p align="left">
+  <a href="https://dibyansu06.github.io/dibyansu06/" target="_blank">
+    <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=web&logoColor=white" alt="Portfolio" />
+  </a>
   <a href="mailto:ricky1132003singh@gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email me" />
   </a>
@@ -71,5 +75,6 @@ and more..
   <a href="https://leetcode.com/u/dibyansu_singh/" target="_blank">
     <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white" alt="LeetCode profile" />
   </a>
+  <img width="10" />
 </p>
 
