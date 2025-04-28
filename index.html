@@ -27,67 +27,57 @@
     <!-- ====== Navbar Section Start -->
     <div class="ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent py-8">
       <div class="container mx-auto">
-        <div class="flex items-center justify-between px-4">
-          <!-- Mobile Menu Button -->
-          <button
-            id="navbarToggler"
-            class="lg:hidden flex items-center rounded-lg p-2 text-white focus:ring-2 focus:ring-primary"
-            aria-expanded="false"
-            aria-controls="navbarCollapse"
-          >
-            <span class="block h-1 w-8 bg-white my-[3px]"></span>
-            <span class="block h-1 w-8 bg-white my-[3px]"></span>
-            <span class="block h-1 w-8 bg-white my-[3px]"></span>
-          </button>
-    
-          <!-- Navigation -->
-          <nav
-            id="navbarCollapse"
-            class="hidden lg:flex lg:items-center lg:space-x-10"
-            role="navigation"
-          >
-            <ul class="flex items-center space-x-8">
-              <li>
-                <a
-                  href="#home"
-                  class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
-                  aria-label="Home"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#about"
-                  class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
-                  aria-label="About"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#project"
-                  class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
-                  aria-label="Projects"
-                >
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
-                  aria-label="Contact"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </nav>
-    
-          <!-- Theme Switcher -->
-          <div class="flex items-center">
+        <div class="flex items-center justify-center px-4">
+          <div>
+            <button
+              id="navbarToggler"
+              class="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
+            >
+              <span class="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
+              <span class="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
+              <span class="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
+            </button>
+            <nav
+              id="navbarCollapse"
+              class="hidden lg:flex lg:items-center lg:space-x-10"
+            >
+              <ul class="flex items-center space-x-8">
+                <li>
+                  <a
+                    href="#home"
+                    class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#about"
+                    class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#project"
+                    class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
+                  >
+                    Projects
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#contact"
+                    class="ud-menu-scroll text-base font-medium text-white hover:opacity-70"
+                  >
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="flex items-center ml-10">
             <label
                 for="themeSwitcher"
                 class="inline-flex cursor-pointer items-center"
@@ -164,7 +154,6 @@
         </div>
       </div>
     </div>
-    
     
     <!-- ====== Navbar Section End -->
 
@@ -1001,47 +990,59 @@
     <script src="assets/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@1.6.5/dist/flowbite.js"></script>
     <script>
-      // Smooth scrolling for menu links
-      const pageLinks = document.querySelectorAll(".ud-menu-scroll");
+      // ==== for menu scroll
+      const pageLink = document.querySelectorAll(".ud-menu-scroll");
 
-      pageLinks.forEach((elem) => {
+      pageLink.forEach((elem) => {
         elem.addEventListener("click", (e) => {
           e.preventDefault();
           document.querySelector(elem.getAttribute("href")).scrollIntoView({
             behavior: "smooth",
+            offsetTop: 1 - 60,
           });
         });
       });
 
-      // Update active class on scroll
-      function onScroll() {
+      // section menu active
+      function onScroll(event) {
         const sections = document.querySelectorAll(".ud-menu-scroll");
-        const scrollPos = window.scrollY || document.documentElement.scrollTop;
+        const scrollPos =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop;
 
-        sections.forEach((currLink) => {
-          const section = document.querySelector(currLink.getAttribute("href"));
+        for (let i = 0; i < sections.length; i++) {
+          const currLink = sections[i];
+          const val = currLink.getAttribute("href");
+          const refElement = document.querySelector(val);
+          const scrollTopMinus = scrollPos + 73;
           if (
-            section.offsetTop <= scrollPos + 70 &&
-            section.offsetTop + section.offsetHeight > scrollPos + 70
+            refElement.offsetTop <= scrollTopMinus &&
+            refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
           ) {
-            document.querySelectorAll(".ud-menu-scroll").forEach((link) => {
-              link.classList.remove("active");
-            });
+            document
+              .querySelector(".ud-menu-scroll")
+              .classList.remove("active");
             currLink.classList.add("active");
+          } else {
+            currLink.classList.remove("active");
           }
-        });
+        }
       }
 
-      window.addEventListener("scroll", onScroll);
+      window.document.addEventListener("scroll", onScroll);
 
-      // Initialize Swiper for testimonials
+      // Testimonial
       const testimonialSwiper = new Swiper(".testimonial-carousel", {
         slidesPerView: 1,
         spaceBetween: 30,
+
+        // Navigation arrows
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
+
         breakpoints: {
           640: {
             slidesPerView: 2,
@@ -1057,31 +1058,6 @@
           },
         },
       });
-
-      // Theme switcher functionality
-      const themeSwitcher = document.getElementById("themeSwitcher");
-      const htmlElement = document.documentElement;
-
-      themeSwitcher.addEventListener("change", () => {
-        if (themeSwitcher.checked) {
-          htmlElement.classList.add("dark");
-          localStorage.setItem("theme", "dark");
-        } else {
-          htmlElement.classList.remove("dark");
-          localStorage.setItem("theme", "light");
-        }
-      });
-
-      // Apply theme based on saved preference
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark") {
-        htmlElement.classList.add("dark");
-        themeSwitcher.checked = true;
-      } else {
-        htmlElement.classList.remove("dark");
-        themeSwitcher.checked = false;
-      }
     </script>
-
   </body>
 </html>
